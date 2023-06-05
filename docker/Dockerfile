@@ -7,5 +7,5 @@ FROM alpine
 WORKDIR /app
 COPY --from=builder /app/go-proxy-bingai .
 
-EXPOSE 80
+EXPOSE 443
 CMD ["/app/go-proxy-bingai"]
