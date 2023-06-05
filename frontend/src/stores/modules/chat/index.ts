@@ -51,25 +51,25 @@ export const useChatStore = defineStore(
         };
       }
       try {
-        // const startTime = Date.now();
-        // const ws = new WebSocket(config.baseUrl.replace('http', 'ws') + chatHubPath);
-        // const wsTimer = setTimeout(() => {
-        //   ws.close();
-        // }, sydneyCheckTimeoutMS);
-        // await new Promise((resolve, reject) => {
-        //   ws.onopen = () => {
-        //     clearTimeout(wsTimer);
-        //     resolve(ws.close());
-        //   };
-        //   ws.onerror = () => {
-        //     clearTimeout(wsTimer);
-        //     reject(new Error(`聊天服务器 ${config.baseUrl} 连接失败`));
-        //   };
-        //   ws.onclose = () => reject(new Error(`聊天服务器 ${config.baseUrl} 连接超时`));
-        // });
+        const startTime = Date.now();
+        const ws = new WebSocket(config.baseUrl.replace('http', 'ws') + chatHubPath);
+        const wsTimer = setTimeout(() => {
+          ws.close();
+        }, sydneyCheckTimeoutMS);
+        await new Promise((resolve, reject) => {
+          ws.onopen = () => {
+            clearTimeout(wsTimer);
+            resolve(ws.close());
+          };
+          ws.onerror = () => {
+            clearTimeout(wsTimer);
+            reject(new Error(`聊天服务器 ${config.baseUrl} 连接失败`));
+          };
+          ws.onclose = () => reject(new Error(`聊天服务器 ${config.baseUrl} 连接超时`));
+        });
         return {
           isUsable: true,
-          delay: Date.now() - Date.now() - 2000,
+          delay: Date.now() - startTime,
         };
       } catch (error) {
         return {
