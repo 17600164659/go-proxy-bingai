@@ -9,7 +9,7 @@ services:
     # 自启动
     restart: unless-stopped
     ports:
-      - 443:443
+      - 80:80
     # environment:
     #   - Go_Proxy_BingAI_SOCKS_URL=192.168.0.88:1070
     #   - Go_Proxy_BingAI_SOCKS_USER=xxx

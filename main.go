@@ -19,7 +19,7 @@ func main() {
 
 	port := os.Getenv("PORT")
 	if port == "" {
-		port = "443"
+		port = "80"
 	}
 	addr := ":" + port
 
